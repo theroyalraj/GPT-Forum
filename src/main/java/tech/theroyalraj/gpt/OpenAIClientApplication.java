@@ -2,6 +2,7 @@ package tech.theroyalraj.gpt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -13,4 +14,8 @@ public class OpenAIClientApplication extends SpringBootServletInitializer {
 		SpringApplication.run(OpenAIClientApplication.class, args);
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(OpenAIClientApplication.class);
+	}
 }
