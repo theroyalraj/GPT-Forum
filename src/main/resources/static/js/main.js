@@ -62,33 +62,8 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        
-        var messageElement = document.createElement('li');
-        messageElement.classList.add('chat-message');
-		var avatarElement = document.createElement('i');
-		var avatarText = document.createTextNode(username);
-		avatarElement.appendChild(avatarText);
-		avatarElement.style['background-color'] = getAvatarColor(username);
-
-		messageElement.appendChild(avatarElement);
-
-		var usernameElement = document.createElement('span');
-		var usernameText = document.createTextNode(username);
-		usernameElement.appendChild(usernameText);
-		messageElement.appendChild(usernameElement);
 		
-		
-		var textElement = document.createElement('p');
-		var messageText = document.createTextNode(messageContent);
-		textElement.appendChild(messageText);
-
-		messageElement.appendChild(textElement);
-
-		messageArea.appendChild(messageElement);
-		messageArea.scrollTop = messageArea.scrollHeight;
-		
-		
-		 stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+		stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
     event.preventDefault();
@@ -106,7 +81,7 @@ function onMessageReceived(payload) {
 		} else if (message.type === 'LEAVE') {
 			messageElement.classList.add('event-message');
 			message.content = message.sender + ' left!';
-		} else  if (message.type === 'BOT') {
+		} else{
 			messageElement.classList.add('chat-message');
 
 			var avatarElement = document.createElement('i');

@@ -32,7 +32,8 @@ public class ChatController {
     public List<ChatMessage> sendMessage(@Payload ChatMessage chatMessage) {
     	List<ChatMessage> listOfmessage =  new ArrayList<>();
 		logger.info("" + chatMessage);
-		if (chatMessage.getType().equals(MessageType.CHAT)) {
+		listOfmessage.add(chatMessage);
+		if (chatMessage.getType().equals(MessageType.CHAT) && chatMessage.getContent().contains("/gpt")) {
 			ChatRequest chatGPTReq = new ChatRequest();
 			chatGPTReq.setQuestion("Imagine you are connected to same forum and "+chatMessage.getSender() + " texted \"" + chatMessage.getContent()
 					+ "\" on the forum. Reply to this text");
@@ -43,8 +44,6 @@ public class ChatController {
 			gptMessResponse.setSender("GPT Bot");
 			gptMessResponse.setType(ChatMessage.MessageType.BOT);
 			listOfmessage.add(gptMessResponse);
-		}else {
-			listOfmessage.add(chatMessage);
 		}
         return listOfmessage;
     }
